@@ -335,7 +335,13 @@ def process_access_code(msg, accounts):
 
 # -------- وظائف أخرى (مثل إضافة حسابات للبيع، إرسال الرسائل الجماعية، إلخ) --------
 # يمكنك إضافة باقي الوظائف بنفس الطريقة بناءً على الكود الأصلي مع التعديلات
-
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    print("DEBUG: Received an update from Telegram Webhook:", json_string)
+    return '', 200
 # -------- تشغيل البوت --------
 if __name__ == "__main__":
     init_db()
