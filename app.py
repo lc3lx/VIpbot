@@ -16,8 +16,6 @@ db = client["Vbot"]
 admins = db["admins"]
 merchants = db["merchants"]
 users = db["users"]
-accounts_for_sale = db["accounts_for_sale"]
-purchase_requests = db["purchase_requests"]
 
 # --- إعدادات البوت ---
 TOKEN = "7615349663:AAG9KHPexx9IVs48ayCEJ0st7vgBmEqZxpY"
@@ -69,6 +67,11 @@ def fetch_email_with_link(account, subject_keywords, button_text):
                                 return a['href']
     return "❌ طلبك غير موجود."
 
+def init_db():
+    admins_coll.create_index("username", unique=True)
+    users_coll.create_index("username", unique=True)
+    merchants_coll.create_index("username", unique=True)
+    subscribers_coll.create_index("chat_id", unique=True)
 # --- التحقق من الصلاحيات ---
 def is_admin(username):
     return admins.find_one({"username": username}) is not None
@@ -206,4 +209,5 @@ def webhook():
 
 # --- تشغيل البوت ---
 if __name__ == "__main__":
-    bot.polling(none_stop=True)
+     init_db()
+     app.run(host="0.0.0.0", port=5000)
