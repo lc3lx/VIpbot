@@ -196,6 +196,14 @@ def start_message(message):
     else:
         bot.send_message(message.chat.id, "مرحباً المستخدم!", reply_markup=user_keyboard())
 
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    print("DEBUG: Received an update from Telegram Webhook:", json_string)
+    return '', 200
+
 # --- تشغيل البوت ---
 if __name__ == "__main__":
     bot.polling(none_stop=True)
