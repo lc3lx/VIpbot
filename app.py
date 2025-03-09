@@ -170,7 +170,7 @@ def process_code_request(msg, accounts):
     if selected_account not in accounts:
         bot.send_message(msg.chat.id, "❌ الحساب غير صحيح")
         return
-    code = fetch_email_with_link(selected_account, ["رمز الوصول المؤقت"])
+    code = fetch_email_with_link(selected_account, ["رمز الوصول المؤقت"], "الحصول على الرمز")
     bot.send_message(msg.chat.id, f"رمز السكن: {code}")
 
 # --- وظائف الأدمن الأخرى ---
