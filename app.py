@@ -21,7 +21,7 @@ users = db["users"]          # مستخدمي التجار مع الحسابات
 app = Flask(__name__)
 
 # --- إعدادات البوت ---
-TOKEN = "7615349663:AAG9KHPexx9IVs48ayCEJ0st7vgBmEqZxpY"
+TOKEN = "7815444489:AAE7irwp33d_zNE5E2uJr3syqwh5tZu_hCE"
 bot = telebot.TeleBot(TOKEN)
 
 # --- إعدادات البريد الإلكتروني ---
