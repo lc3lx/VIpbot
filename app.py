@@ -31,6 +31,14 @@ IMAP_SERVER = "imap.gmail.com"
 mail = imaplib.IMAP4_SSL(IMAP_SERVER)
 mail.login(EMAIL, PASSWORD)
 
+
+
+admins_coll = db["admins"]                 # لتخزين أسماء الأدمن
+users_coll = db["users"]                   # بيانات كل مستخدم في مستند واحد {username, accounts:[]}
+  # الحسابات المعروضة للبيع
+merchants_coll = db["merchants"]       # قائمة الـ chat_id للمشتركين
+
+
 # --- دوال مساعدة ---
 def clean_text(text):
     return text.strip()
@@ -74,7 +82,7 @@ def init_db():
     admins_coll.create_index("username", unique=True)
     users_coll.create_index("username", unique=True)
     merchants_coll.create_index("username", unique=True)
-    subscribers_coll.create_index("chat_id", unique=True)
+ 
 # --- التحقق من الصلاحيات ---
 def is_admin(username):
     return admins.find_one({"username": username}) is not None
